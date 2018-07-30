@@ -2,30 +2,37 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
     <head>
+        <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+            rel="stylesheet">
     </head>
     <body>
-        <h3>Enter the product details</h3>
-        <form:form action="/storeProduct" modelAttribute="product" method="POST">
-             <table>
-                <tr>
-                    <td><form:label path="name">Name</form:label></td>
-                    <td><form:input path="name"/></td>
+        <div class = "container">
+            <h3>Enter the product details</h3>
+            <form:form action="/storeProduct" modelAttribute="product" method="POST">
+                <div class = "form-group">
+                    <form:label path="name">Name</form:label>
+                    <form:input path="name" class="form-control"/>
                     <form:errors path="name" />
-                </tr>
-                <tr>
-                    <td><form:label path="description">Description</form:label></td>
-                    <td><form:input path="description"/></td>
+                </div>
+                <div class = "form-group">
+                    <form:label path="description">Description</form:label>
+                    <form:input path="description" class="form-control"/>
                     <form:errors path="description" />
-                </tr>
-                <tr>
-                    <td><form:label path="price">Price</form:label></td>
-                    <td><form:input path="price"/></td>
+                </div>
+                <div class = "form-group">
+                    <form:label path="price">Price</form:label>
+                    <form:input path="price" class="form-control"/>
                     <form:errors path="price" />
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Store"/></td>
-                </tr>
-            </table>
-        </form:form>
+                </div>
+              <div class = "form-group">
+                 <input class="btn btn-success" type="submit" value="Store"/>
+              </div>
+
+                    </tr>
+                </table>
+            </form:form>
+        </div>
+        <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+        <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </body>
 </html>
