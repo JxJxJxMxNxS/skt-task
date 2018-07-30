@@ -19,7 +19,6 @@ public class ProductController {
 
     @RequestMapping("/newProduct")
     public String addProducts(Map<String, Object> model) {
-        model.put("message", "Hola en los productos");
         model.put("product",new Product());
         return "/products/newProducts";
     }
@@ -37,21 +36,21 @@ public class ProductController {
     @RequestMapping(value="/listProducts", method=RequestMethod.GET)
     public String listProducts(Map<String, Object> model){
         Product product;
-        List<Product> products = new ArrayList<Product>();
+        List<Product> products = new ArrayList<>();
         product=new Product();
         product.setName("Sabritas");
         product.setDescription("Saben bien");
-        product.setPrice(new Long(20));
+        product.setPrice(20L);
         products.add(product);
         product=new Product();
         product.setName("coca");
         product.setDescription("Sabe bien");
-        product.setPrice(new Long(10));
+        product.setPrice(10L);
         products.add(product);
         product=new Product();
         product.setName("Gansito");
         product.setDescription("Saben bien");
-        product.setPrice(new Long(12));
+        product.setPrice(12L);
         products.add(product);
         model.put("products",products);
         return "/products/listProducts";

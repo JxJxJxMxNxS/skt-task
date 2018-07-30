@@ -1,4 +1,6 @@
-nearsoft/skytouch/task/model/Product.class
-nearsoft/skytouch/task/controller/HomeController.class
+nearsoft/skytouch/task/component/ProductSource.class
+nearsoft/skytouch/task/component/ProductPublisher.class
 nearsoft/skytouch/task/TaskApplication.class
 nearsoft/skytouch/task/controller/ProductController.class
+nearsoft/skytouch/task/model/Product.class
+nearsoft/skytouch/task/controller/HomeController.class
