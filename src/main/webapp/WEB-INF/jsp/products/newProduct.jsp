@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
 <html>
     <head>
         <link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     </head>
     <body>
         <div class = "container">
