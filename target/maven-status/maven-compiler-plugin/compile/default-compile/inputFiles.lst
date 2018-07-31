@@ -1,4 +1,4 @@
-/home/jose/Desktop/task/src/main/java/nearsoft/skytouch/task/controller/HomeController.java
-/home/jose/Desktop/task/src/main/java/nearsoft/skytouch/task/controller/ProductController.java
-/home/jose/Desktop/task/src/main/java/nearsoft/skytouch/task/model/Product.java
-/home/jose/Desktop/task/src/main/java/nearsoft/skytouch/task/TaskApplication.java
+/home/jose/Desktop/skt-task/src/main/java/nearsoft/skytouch/task/model/Product.java
+/home/jose/Desktop/skt-task/src/main/java/nearsoft/skytouch/task/TaskApplication.java
+/home/jose/Desktop/skt-task/src/main/java/nearsoft/skytouch/task/controller/ProductController.java
+/home/jose/Desktop/skt-task/src/main/java/nearsoft/skytouch/task/controller/HomeController.java

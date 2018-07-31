@@ -17,23 +17,23 @@ import java.util.Map;
 @Controller
 public class ProductController {
 
-    @RequestMapping("/newProduct")
+    @RequestMapping(value= "/view/product", method = RequestMethod.GET)
     public String addProducts(Map<String, Object> model) {
         model.put("product",new Product());
-        return "/products/newProducts";
+        return "/products/newProduct";
     }
 
-    @RequestMapping(value="/storeProduct", method = RequestMethod.POST)
+    @RequestMapping(value="/products", method = RequestMethod.POST)
     public String submit(@ModelAttribute("product")Product product,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult,Map<String, Object> model) {
         if (bindingResult.hasErrors()) {
-            return "product";
+            model.put("errors",bindingResult.getAllErrors());
+            return "/errors/error";
         }
-
-        return "/products/newProducts";
+        return "/products/newProduct";
     }
 
-    @RequestMapping(value="/listProducts", method=RequestMethod.GET)
+    @RequestMapping(value="/products", method=RequestMethod.GET)
     public String listProducts(Map<String, Object> model){
         Product product;
         List<Product> products = new ArrayList<>();
