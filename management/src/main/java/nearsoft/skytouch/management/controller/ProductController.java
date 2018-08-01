@@ -22,7 +22,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/view/product", method = RequestMethod.GET)
-    public String addProducts(Map<String, Object> model) {
+    public String newProductView(Map<String, Object> model) {
         model.put("product", new Product());
         return "products/newProduct";
     }
