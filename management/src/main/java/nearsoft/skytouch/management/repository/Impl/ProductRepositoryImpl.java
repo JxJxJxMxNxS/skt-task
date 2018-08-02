@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepository {
+class ProductRepositoryImpl implements ProductRepository {
     public List<Product> retrieveProducts() {
         Product product;
         List<Product> products = new ArrayList<>();

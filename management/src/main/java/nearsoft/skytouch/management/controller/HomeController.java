@@ -8,7 +8,7 @@ import java.util.Map;
 @Controller
 public class HomeController {
     @RequestMapping("/")
-    public String welcome(Map<String, Object> model) {
+    private String welcome(Map<String, Object> model) {
         return "/home";
     }
 

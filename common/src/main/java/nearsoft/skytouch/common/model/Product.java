@@ -29,4 +29,10 @@ public class Product {
     public void setPrice(Long price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "name=" + name + ", description=" + description
+                + ", price=" + price + '}';
+    }
 }

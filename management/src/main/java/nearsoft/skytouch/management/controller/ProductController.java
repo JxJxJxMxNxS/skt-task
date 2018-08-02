@@ -22,14 +22,14 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/view/product", method = RequestMethod.GET)
-    public String newProductView(Map<String, Object> model) {
+    private String newProductView(Map<String, Object> model) {
         model.put("product", new Product());
         return "products/newProduct";
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("product") Product product,
-                         BindingResult bindingResult, Map<String, Object> model) {
+    private String submit(@ModelAttribute("product") Product product,
+                          BindingResult bindingResult, Map<String, Object> model) {
         if (bindingResult.hasErrors()) {
             model.put("errors", bindingResult.getAllErrors());
             return "errors/error";
@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String listProducts(Map<String, Object> model) {
+    private String listProducts(Map<String, Object> model) {
         List<Product> products;
         products = productService.retrieveProducts();
         model.put("products", products);
