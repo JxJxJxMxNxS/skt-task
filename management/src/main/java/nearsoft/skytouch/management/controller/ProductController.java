@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @Controller
-public class ProductController {
+class ProductController {
 
     private ProductService productService;
 
