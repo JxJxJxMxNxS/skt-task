@@ -22,7 +22,7 @@ class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void storeProduct(Product product) {
-        productRepository.storeProduct(product);
+    public Product storeProduct(Product product) {
+        return productRepository.storeProduct(product);
     }
 }

@@ -31,7 +31,7 @@ class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void storeProduct(Product product) {
-
+    public Product storeProduct(Product product) {
+        return null;
     }
 }

@@ -21,5 +21,5 @@ public interface ProductRepository {
      * Mechanism to store the products
      * @param product the product to be stored
      */
-    void storeProduct(Product product);
+    Product storeProduct(Product product);
 }
