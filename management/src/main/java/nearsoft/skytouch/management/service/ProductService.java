@@ -15,4 +15,10 @@ public interface ProductService {
      * @return a list with all the products
      */
     List<Product> retrieveProducts();
+
+    /***
+     * Service to store the products
+     * @param product the product to be stored
+     */
+    void storeProduct(Product product);
 }

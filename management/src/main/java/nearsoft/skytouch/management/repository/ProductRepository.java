@@ -16,4 +16,10 @@ public interface ProductRepository {
      * @return a list with all the products
      */
     List<Product> retrieveProducts();
+
+    /***
+     * Mechanism to store the products
+     * @param product the product to be stored
+     */
+    void storeProduct(Product product);
 }

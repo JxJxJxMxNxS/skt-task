@@ -29,4 +29,9 @@ class ProductRepositoryImpl implements ProductRepository {
         products.add(product);
         return products;
     }
+
+    @Override
+    public void storeProduct(Product product) {
+
+    }
 }

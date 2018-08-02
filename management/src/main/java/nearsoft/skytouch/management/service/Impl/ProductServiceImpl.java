@@ -20,4 +20,9 @@ class ProductServiceImpl implements ProductService {
     public List<Product> retrieveProducts() {
         return productRepository.retrieveProducts();
     }
+
+    @Override
+    public void storeProduct(Product product) {
+        productRepository.storeProduct(product);
+    }
 }

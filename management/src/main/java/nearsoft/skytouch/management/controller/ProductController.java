@@ -34,6 +34,7 @@ class ProductController {
             model.put("errors", bindingResult.getAllErrors());
             return "errors/error";
         }
+        productService.storeProduct(product);
         model.put("product",new Product());
         return "products/newProduct";
     }
