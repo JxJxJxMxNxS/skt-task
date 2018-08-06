@@ -10,6 +10,7 @@
 
     <packaging>pom</packaging>
     <modules>
+        <module>microservice</module>
         <module>management</module>
         <module>common</module>
     </modules>

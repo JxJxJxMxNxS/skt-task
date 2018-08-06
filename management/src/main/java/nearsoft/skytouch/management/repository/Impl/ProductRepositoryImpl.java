@@ -2,7 +2,12 @@ package nearsoft.skytouch.management.repository.Impl;
 
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.management.repository.ProductRepository;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,17 @@ class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product storeProduct(Product product) {
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("name", product.getName());
+        map.add("description", product.getDescription());
+        map.add("price", product.getPrice().toString());
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForLocation("http://localhost:8080/products", request);
         return null;
     }
 }

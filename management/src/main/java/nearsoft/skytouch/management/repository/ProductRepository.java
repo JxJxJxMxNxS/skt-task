@@ -20,6 +20,7 @@ public interface ProductRepository {
     /***
      * Mechanism to store the products
      * @param product the product to be stored
+     * @return the stored product
      */
     Product storeProduct(Product product);
 }
