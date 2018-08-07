@@ -4,6 +4,8 @@ public class Product {
     private String name;
     private String description;
     private Long price;
+    private Long id;
+
 
 
     public String getName() {
@@ -30,9 +32,21 @@ public class Product {
         this.price = price;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", description=" + description
-                + ", price=" + price + '}';
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", id=" + id +
+                '}';
     }
 }

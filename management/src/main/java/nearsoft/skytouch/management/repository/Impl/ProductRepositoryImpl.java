@@ -1,7 +1,11 @@
 package nearsoft.skytouch.management.repository.Impl;
 
 import nearsoft.skytouch.common.model.Product;
+import nearsoft.skytouch.management.channel.ProductChannel;
+import nearsoft.skytouch.management.producer.ProductProducer;
 import nearsoft.skytouch.management.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
@@ -14,6 +18,12 @@ import java.util.List;
 
 @Repository
 class ProductRepositoryImpl implements ProductRepository {
+
+    @Autowired
+    private ProductChannel productChannel;
+
+
+
     public List<Product> retrieveProducts() {
         Product product;
         List<Product> products = new ArrayList<>();
@@ -37,7 +47,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product storeProduct(Product product) {
-        HttpHeaders headers = new HttpHeaders();
+        /*HttpHeaders headers = new HttpHeaders();
 
         headers.add("Content-Type", "application/x-www-form-urlencoded");
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
@@ -48,6 +58,8 @@ class ProductRepositoryImpl implements ProductRepository {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForLocation("http://localhost:8080/products", request);
+        return null;*/
+        productChannel.productOrders().send(MessageBuilder.withPayload(product).build());
         return null;
     }
 }

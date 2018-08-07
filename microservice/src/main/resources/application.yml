@@ -9,3 +9,19 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     hibernate:
       ddl-auto: create-drop
+  rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: productOrders
+          group: productOrdersIntakeGroup
+
+server:
+  port: 8080
+
+

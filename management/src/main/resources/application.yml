@@ -3,5 +3,17 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+  cloud:
+    stream:
+      bindings:
+        productOrdersChannel:
+          destination: productOrders
+      default:
+        contentType: application/json
 server:
   port: 9093
