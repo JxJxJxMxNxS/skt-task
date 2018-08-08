@@ -3,6 +3,7 @@ package nearsoft.skytouch.microservice.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nearsoft.skytouch.common.ProductJSONSerializer;
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.microservice.channel.ProductChannel;
 import nearsoft.skytouch.microservice.service.ProductService;
@@ -32,14 +33,10 @@ public class ProductConsumer {
     @StreamListener("requestProductsChannel")
     public void manageRequestProducts(){
         ObjectMapper objectMapper = new ObjectMapper();
-
+        ProductJSONSerializer serializer = new ProductJSONSerializer();
         List<Product> products = productService.getProducts();
-       // try {
-         //   String productsJson = objectMapper.writeValueAsString(products);
-            productChannel.sendProducts().send(MessageBuilder.withPayload(products).build());
-       // } catch (JsonProcessingException e) {
-        //    e.printStackTrace();
-      //  }
+        productChannel.sendProducts().send(MessageBuilder.withPayload(serializer.serialize(products)).build());
+
 
     }
 }

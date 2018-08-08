@@ -1,6 +1,7 @@
 package nearsoft.skytouch.management.consumer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import nearsoft.skytouch.common.ProductJSONSerializer;
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.management.channel.ProductChannel;
 import nearsoft.skytouch.management.service.ProductService;
@@ -19,13 +20,11 @@ public class ProductConsumer {
     }
 
     @StreamListener("receiveProductsChannel")
-    public void receiveProducts(List<Product> product){
-        /*ObjectMapper objectMapper = new ObjectMapper();
-        List<Product> products = null;
-        try {
-           objectMapper.readValue(productsJson, List.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }/*/
+    public void receiveProducts(String productsJson){
+        ProductJSONSerializer serializer = new ProductJSONSerializer();
+        List<Product> products = serializer.deserialize(productsJson);
+        System.out.println(products);
+
+
     }
 }
