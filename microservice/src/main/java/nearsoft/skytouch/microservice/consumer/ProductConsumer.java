@@ -1,7 +1,5 @@
 package nearsoft.skytouch.microservice.consumer;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nearsoft.skytouch.common.ProductJSONSerializer;
 import nearsoft.skytouch.common.model.Product;
@@ -10,7 +8,6 @@ import nearsoft.skytouch.microservice.service.ProductService;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.cloud.stream.messaging.Sink;
 
 import java.util.List;
 
