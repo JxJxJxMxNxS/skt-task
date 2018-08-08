@@ -22,10 +22,10 @@ class ProductController {
     }
 
     @RequestMapping(value = "products", method = RequestMethod.GET)
-    private ResponseEntity<String> getProducts() {
+    private ResponseEntity<List<Product>> getProducts() {
         List<Product> products = new ArrayList<>();
-        this.productService.getProducts();
-        return new ResponseEntity<>("Bien", HttpStatus.FORBIDDEN);
+
+        return new ResponseEntity<>(this.productService.getProducts(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "products", method = RequestMethod.POST)
@@ -34,7 +34,6 @@ class ProductController {
         product.setName(name);
         product.setPrice(price);
         product.setDescription(description);
-        System.out.println(product);
         this.productService.storeProduct(product);
         return new ResponseEntity<>("Bien", HttpStatus.FORBIDDEN);
     }

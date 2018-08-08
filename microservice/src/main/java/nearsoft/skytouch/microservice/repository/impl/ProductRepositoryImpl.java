@@ -9,6 +9,8 @@ import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -45,7 +47,20 @@ public class ProductRepositoryImpl implements ProductRepository {
     public List<Product> getProducts() {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("getproducts");
         query.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR); //refcursor
+        List<Object[]>ps=query.getResultList();
+        List<Product> products = new LinkedList<>();
+        Product p;
+        for (Object[] product:
+             ps) {
+            p = new Product();
+            p.setName(product[0].toString());
+            p.setDescription(product[1].toString());
+            p.setPrice(Long.parseLong(product[2].toString()));
+            p.setId(Long.parseLong(product[3].toString()));
+            ((LinkedList<Product>) products).push(p);
+        }
 
-        return query.getResultList();
+
+        return products;
     }
 }

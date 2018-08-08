@@ -17,9 +17,17 @@ spring:
   cloud:
     stream:
       bindings:
-        input:
-          destination: productOrders
-          group: productOrdersIntakeGroup
+        createProductsChannel:
+          destination: productsExchange
+          contentType: application/json
+          group: productsQueue
+        requestProductsChannel:
+          destination: requestExchange
+          contentType: application/json
+          group: requestsQueue
+        receiveProductsChannel:
+          destination: receiveProductsExchange
+          group: receiveProductsQueue
 
 server:
   port: 8080

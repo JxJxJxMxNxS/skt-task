@@ -11,9 +11,16 @@ spring:
   cloud:
     stream:
       bindings:
-        productOrdersChannel:
-          destination: productOrders
-      default:
-        contentType: application/json
+        createProductsChannel:
+          destination: productsExchange
+          contentType: application/json
+          group: productsQueue
+        requestProductsChannel:
+          destination: requestExchange
+          contentType: application/json
+          group: requestsQueue
+        receiveProductsChannel:
+          destination: receiveProductsExchange
+          group: receiveProductsQueue
 server:
   port: 9093

@@ -36,7 +36,7 @@ class ProductController {
         }
         productService.storeProduct(product);
         model.put("product",new Product());
-        return "products/newProduct";
+        return "redirect:/view/product";
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
