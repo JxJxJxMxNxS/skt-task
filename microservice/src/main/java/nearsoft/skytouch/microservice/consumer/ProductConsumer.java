@@ -2,6 +2,7 @@ package nearsoft.skytouch.microservice.consumer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nearsoft.skytouch.common.ProductJSONSerializer;
+import nearsoft.skytouch.common.config.RabbitMQConfiguration;
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.microservice.channel.ProductChannel;
 import nearsoft.skytouch.microservice.service.ProductService;
@@ -22,12 +23,12 @@ public class ProductConsumer {
         this.productChannel = productChannel;
     }
 
-    @StreamListener("createProductsChannel")
+    @StreamListener(RabbitMQConfiguration.CREATE_PRODUCTS_CHANNEL_NAME)
     public void createProducts(Product product){
         productService.storeProduct(product);
     }
 
-    @StreamListener("requestProductsChannel")
+    @StreamListener(RabbitMQConfiguration.REQUEST_PRODUCTS_CHANNEL_NAME)
     public void manageRequestProducts(){
         ObjectMapper objectMapper = new ObjectMapper();
         ProductJSONSerializer serializer = new ProductJSONSerializer();

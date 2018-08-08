@@ -1,14 +1,18 @@
 package nearsoft.skytouch.management.channel;
 
+import nearsoft.skytouch.common.config.RabbitMQConfiguration;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 
 public interface ProductChannel {
-    @Output("createProductsChannel")
+
+    @Output(RabbitMQConfiguration.CREATE_PRODUCTS_CHANNEL_NAME)
     MessageChannel createProduct();
-    @Output("requestProductsChannel")
+
+    @Output(RabbitMQConfiguration.REQUEST_PRODUCTS_CHANNEL_NAME)
     MessageChannel requestProducts();
-    @Input("receiveProductsChannel")
+
+    @Input(RabbitMQConfiguration.RECEIVE_PRODUCTS_CHANNEL_NAME)
     MessageChannel receiveProducts();
 }
