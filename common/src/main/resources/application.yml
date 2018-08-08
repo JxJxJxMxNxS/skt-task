@@ -1,0 +1,4 @@
+channel-config:
+  create-products-channel-name: createProductsChannel
+  request-products-channel-name: requestProductsChannel
+  receive-products-channel-name: receiveProductsChannel

@@ -35,7 +35,7 @@ class ProductController {
             return "errors/error";
         }
         productService.storeProduct(product);
-        model.put("product",new Product());
+        model.put("product", new Product());
         return "redirect:/view/product";
     }
 

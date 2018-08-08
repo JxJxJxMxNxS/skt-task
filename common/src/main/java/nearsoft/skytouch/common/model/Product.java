@@ -7,7 +7,6 @@ public class Product {
     private Long id;
 
 
-
     public String getName() {
         return name;
     }

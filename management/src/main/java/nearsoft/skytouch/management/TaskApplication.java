@@ -1,12 +1,19 @@
 package nearsoft.skytouch.management;
 
+import nearsoft.skytouch.common.ProductJSONSerializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class TaskApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TaskApplication.class, args);
+    }
+
+    @Bean
+    public ProductJSONSerializer getProductJSONSerializer() {
+        return new ProductJSONSerializer();
     }
 }

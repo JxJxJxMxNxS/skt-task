@@ -27,6 +27,7 @@
         <bootstrap.version>3.3.6</bootstrap.version>
         <jquery.version>1.9.1</jquery.version>
         <common.version>1.0-SNAPSHOT</common.version>
+        <spring-cloud-dependencies.version>Edgware.SR1</spring-cloud-dependencies.version>
     </properties>
 
     <dependencies>
@@ -81,7 +82,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Edgware.SR1</version>
+                <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
