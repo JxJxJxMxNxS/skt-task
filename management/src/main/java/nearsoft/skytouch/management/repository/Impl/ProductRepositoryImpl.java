@@ -7,6 +7,7 @@ import nearsoft.skytouch.management.channel.ProductChannel;
 import nearsoft.skytouch.management.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.support.MessageBuilder;
@@ -21,11 +22,13 @@ class ProductRepositoryImpl implements ProductRepository {
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryImpl.class);
     private ProductJSONSerializer productJSONSerializer;
     private ProductChannel productChannel;
+    private RabbitTemplate rabbitTemplate;
 
 
-    public ProductRepositoryImpl(ProductJSONSerializer productJSONSerializer, ProductChannel productChannel) {
+    public ProductRepositoryImpl(ProductJSONSerializer productJSONSerializer, ProductChannel productChannel, RabbitTemplate rabbitTemplate) {
         this.productJSONSerializer = productJSONSerializer;
         this.productChannel = productChannel;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public List<Product> retrieveProducts() {

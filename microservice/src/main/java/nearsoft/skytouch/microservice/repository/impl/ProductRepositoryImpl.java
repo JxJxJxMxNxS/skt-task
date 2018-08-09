@@ -1,13 +1,9 @@
 package nearsoft.skytouch.microservice.repository.impl;
 
-import nearsoft.skytouch.common.ProductJSONSerializer;
-import nearsoft.skytouch.common.config.RabbitMQConfiguration;
+
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.microservice.channel.ProductChannel;
 import nearsoft.skytouch.microservice.repository.ProductRepository;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,7 +14,6 @@ import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
-@EnableBinding(ProductChannel.class)
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
@@ -26,20 +21,16 @@ public class ProductRepositoryImpl implements ProductRepository {
     private EntityManager entityManager;
 
     private ProductChannel productChannel;
-    private ProductJSONSerializer productJSONSerializer;
 
-    public ProductRepositoryImpl(EntityManager entityManager, ProductChannel productChannel, ProductJSONSerializer productJSONSerializer) {
+    public ProductRepositoryImpl(EntityManager entityManager, ProductChannel productChannel) {
         this.entityManager = entityManager;
         this.productChannel = productChannel;
-        this.productJSONSerializer = productJSONSerializer;
     }
 
-    @StreamListener(RabbitMQConfiguration.CREATE_PRODUCTS_CHANNEL_NAME)
+
     @Transactional
     @Override
-    public void storeProduct(String productJSON) {
-
-        Product product = productJSONSerializer.deserializeObject(productJSON);
+    public void storeProduct(Product product) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("addproduct");
 
         query.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR); //refcursor
@@ -59,10 +50,9 @@ public class ProductRepositoryImpl implements ProductRepository {
         product1.setId(Long.parseLong(products.get(0)[3].toString()));
     }
 
-    @StreamListener(RabbitMQConfiguration.REQUEST_PRODUCTS_CHANNEL_NAME)
     @Transactional
     @Override
-    public void getProducts() {
+    public List<Product> getProducts() {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("getproducts");
         query.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR); //refcursor
         List<Object[]> productsRaw = query.getResultList();
@@ -76,8 +66,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setId(Long.parseLong(productRaw[3].toString()));
             products.add(product);
         }
-
-        productChannel.sendProducts().send(MessageBuilder.withPayload(productJSONSerializer.serializeList(products)).build());
+        return products;
     }
 
 }
