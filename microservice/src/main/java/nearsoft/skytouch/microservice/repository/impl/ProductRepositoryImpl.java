@@ -2,7 +2,6 @@ package nearsoft.skytouch.microservice.repository.impl;
 
 
 import nearsoft.skytouch.common.model.Product;
-import nearsoft.skytouch.microservice.channel.ProductChannel;
 import nearsoft.skytouch.microservice.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,17 +19,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private ProductChannel productChannel;
 
-    public ProductRepositoryImpl(EntityManager entityManager, ProductChannel productChannel) {
+    public ProductRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.productChannel = productChannel;
     }
 
 
     @Transactional
     @Override
-    public void storeProduct(Product product) {
+    public Product storeProduct(Product product) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("addproduct");
 
         query.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR); //refcursor
@@ -48,6 +45,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         product1.setDescription(products.get(0)[1].toString());
         product1.setPrice(Long.parseLong(products.get(0)[2].toString()));
         product1.setId(Long.parseLong(products.get(0)[3].toString()));
+        return product1;
     }
 
     @Transactional

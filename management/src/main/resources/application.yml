@@ -8,19 +8,5 @@ spring:
       port: 5672
       username: ${RABBIT_USERNAME}
       password: ${RABBIT_PASSWORD}
-  cloud:
-    stream:
-      bindings:
-        createProductsChannel:
-          destination: productsExchange
-          contentType: application/json
-          group: productsQueue
-        requestProductsChannel:
-          destination: requestExchange
-          contentType: application/json
-          group: requestsQueue
-        receiveProductsChannel:
-          destination: receiveProductsExchange
-          group: receiveProductsQueue
 server:
   port: 9093

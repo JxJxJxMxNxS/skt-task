@@ -5,7 +5,7 @@ import nearsoft.skytouch.common.model.Product;
 import java.util.List;
 
 public interface ProductService {
-    void storeProduct(Product product);
+    Product storeProduct(Product product);
 
     List<Product> getProducts();
 }
