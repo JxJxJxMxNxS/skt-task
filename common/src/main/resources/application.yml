@@ -1,4 +1,11 @@
-channel-config:
-  create-products-channel-name: createProductsChannel
-  request-products-channel-name: requestProductsChannel
-  receive-products-channel-name: receiveProductsChannel
+rabbit-names-config:
+  products-exchange-name: productExchange
+  receive-products-queue-name: receiveProductsQueue
+  request-products-queue-name: requestProductsQueue
+  store-products-queue-name: storeProductsQueue
+  store-reply-products-queue-name: storeReplyProductsQueue
+
+  reply-products-routing-key: reply.products
+  request-products-routing-key: request.products
+  store-products-routing-key: store.product
+  store-reply-products-routing-key: store.reply.product

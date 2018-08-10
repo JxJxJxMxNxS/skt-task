@@ -19,14 +19,14 @@ public class Subscriber {
     private ProductJSONSerializer productJSONSerializer;
 
     @RabbitHandler
-    @RabbitListener(containerFactory = "simpleMessageListenerContainerFactory", queues = "requestProductsQueue")
+    @RabbitListener(queues = "requestProductsQueue")
     public String subscribeToRequestQueue(@Payload String requestMessage, Message message) {
         LOGGER.debug("Request received");
         return productJSONSerializer.serializeList(this.productService.getProducts());
     }
 
     @RabbitHandler
-    @RabbitListener(containerFactory = "simpleMessageListenerContainerFactory", queues = "storeProductsQueue")
+    @RabbitListener(queues = "storeProductsQueue")
     public String subscribeTostoreQueue(@Payload String productMessage, Message message) {
 
         LOGGER.debug("Product received to storage {}", productMessage);

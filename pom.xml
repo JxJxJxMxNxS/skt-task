@@ -10,9 +10,46 @@
 
     <packaging>pom</packaging>
     <modules>
+        <module>common</module>
         <module>microservice</module>
         <module>management</module>
-        <module>common</module>
     </modules>
+
+    <properties>
+        <spring-boot-starter-web.version>1.5.7.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-test.version>1.5.7.RELEASE</spring-boot-starter-test.version>
+        <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+        <spring-boot-starter-amqp.version>1.5.7.RELEASE</spring-boot-starter-amqp.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter-web.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-starter-test.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot-starter-amqp.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
