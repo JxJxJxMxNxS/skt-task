@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/skt-task
-    username: jxjxjxm
-    password: JJJM214332
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     generate-dll: true
     driverClassName: org.postgresql.Driver
   jpa:
