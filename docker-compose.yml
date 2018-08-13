@@ -1,0 +1,8 @@
+rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit-skt-task"
+    labels:
+        name: "rabbit-server"
+    ports:
+    - "15672:15672"
+    - "5679:5672"
