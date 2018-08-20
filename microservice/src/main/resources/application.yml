@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/skt-task
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    generate-dll: true
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: create-drop
+  rabbitmq:
+        host: localhost
+        port: 5672
+        username: ${RABBIT_USERNAME}
+        password: ${RABBIT_PASSWORD}
+server:
+  port: 8080
+
+

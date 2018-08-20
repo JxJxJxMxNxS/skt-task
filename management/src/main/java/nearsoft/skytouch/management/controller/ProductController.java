@@ -35,8 +35,8 @@ class ProductController {
             return "errors/error";
         }
         productService.storeProduct(product);
-        model.put("product",new Product());
-        return "products/newProduct";
+        model.put("product", new Product());
+        return "redirect:/view/product";
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)

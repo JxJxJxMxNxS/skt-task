@@ -1,37 +1,39 @@
 package nearsoft.skytouch.management.repository.Impl;
 
+import nearsoft.skytouch.common.ProductJSONSerializer;
 import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.management.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-
 @Repository
 class ProductRepositoryImpl implements ProductRepository {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ProductRepositoryImpl.class);
+    private ProductJSONSerializer productJSONSerializer;
+    private RabbitTemplate rabbitTemplate;
+    private DirectExchange directExchange;
+
+
+    public ProductRepositoryImpl(ProductJSONSerializer productJSONSerializer, RabbitTemplate rabbitTemplate, DirectExchange directExchange) {
+        this.productJSONSerializer = productJSONSerializer;
+        this.rabbitTemplate = rabbitTemplate;
+        this.directExchange = directExchange;
+    }
+
     public List<Product> retrieveProducts() {
-        Product product;
-        List<Product> products = new ArrayList<>();
-        product = new Product();
-        product.setName("Sabritas");
-        product.setDescription("Saben bien");
-        product.setPrice(20L);
-        products.add(product);
-        product = new Product();
-        product.setName("Coca");
-        product.setDescription("rico");
-        product.setPrice(10L);
-        products.add(product);
-        product = new Product();
-        product.setName("Gansito");
-        product.setDescription("deliciosos cuando estan congelados");
-        product.setPrice(12L);
-        products.add(product);
-        return products;
+        Object o = rabbitTemplate.convertSendAndReceive(directExchange.getName(), "request.products", "request");
+        return productJSONSerializer.deserializeList(o.toString());
     }
 
     @Override
     public Product storeProduct(Product product) {
-        return null;
+        Object o = rabbitTemplate.convertSendAndReceive(directExchange.getName(), "store.product", productJSONSerializer.serializeObject(product));
+        return productJSONSerializer.deserializeObject(o.toString());
     }
+
 }
