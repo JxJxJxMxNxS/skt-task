@@ -9,3 +9,9 @@ rabbit-names-config:
   request-products-routing-key: request.products
   store-products-routing-key: store.product
   store-reply-products-routing-key: store.reply.product
+spring:
+  rabbitmq:
+        host: localhost
+        port: 5679
+        username: guest
+        password: guest

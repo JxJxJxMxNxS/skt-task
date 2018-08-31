@@ -11,7 +11,7 @@ spring:
       ddl-auto: create-drop
   rabbitmq:
         host: localhost
-        port: 5672
+        port: 5679
         username: ${RABBIT_USERNAME}
         password: ${RABBIT_PASSWORD}
 server:
