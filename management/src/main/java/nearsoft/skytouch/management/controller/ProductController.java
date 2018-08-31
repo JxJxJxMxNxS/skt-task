@@ -23,7 +23,8 @@ class ProductController {
 
     @RequestMapping(value = "/view/product", method = RequestMethod.GET)
     private String newProductView(Map<String, Object> model) {
-        model.put("product", new Product());
+        Product emptyProduct = new Product();
+        model.put("product", emptyProduct);
         return "products/newProduct";
     }
 

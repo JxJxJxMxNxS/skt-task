@@ -8,5 +8,14 @@ spring:
       port: 5679
       username: ${RABBIT_USERNAME}
       password: ${RABBIT_PASSWORD}
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/skt-task
+    username: jxjxjxm
+    password: JJJM214332
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+
 server:
   port: 9093

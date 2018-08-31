@@ -1,6 +1,7 @@
 package nearsoft.skytouch.microservice.subscriber;
 
 import nearsoft.skytouch.common.ProductJSONSerializer;
+import nearsoft.skytouch.common.model.Product;
 import nearsoft.skytouch.microservice.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
+
+import java.util.List;
 
 public class Subscriber {
 
@@ -22,7 +25,8 @@ public class Subscriber {
     @RabbitListener(queues = "requestProductsQueue")
     public String subscribeToRequestQueue(@Payload String requestMessage, Message message) {
         LOGGER.debug("Request received");
-        return productJSONSerializer.serializeList(this.productService.getProducts());
+        List<Product> products = this.productService.getProducts();
+        return productJSONSerializer.serializeList(products);
     }
 
     @RabbitHandler
@@ -30,6 +34,6 @@ public class Subscriber {
     public String subscribeTostoreQueue(@Payload String productMessage, Message message) {
 
         LOGGER.debug("Product received to storage {}", productMessage);
-        return productJSONSerializer.serializeObject(this.productService.storeProduct(productJSONSerializer.deserializeObject(productMessage)));
+        return productJSONSerializer.serializeObject(productService.storeProduct(productJSONSerializer.deserializeObject(productMessage)));
     }
 }
