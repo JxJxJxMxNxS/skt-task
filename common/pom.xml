@@ -10,10 +10,21 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>
 
+    <properties>
+        <spring-cloud-starter-config.version>1.4.2.RELEASE</spring-cloud-starter-config.version>
+        <spring-boot-starter-data-jpa.version>1.5.7.RELEASE</spring-boot-starter-data-jpa.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${spring-cloud-starter-config.version}</version>
         </dependency>
 
         <dependency>
@@ -29,9 +40,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>1.5.7.RELEASE</version>
+            <version>${spring-boot-starter-data-jpa.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

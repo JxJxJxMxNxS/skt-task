@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-task
+  profiles:
+    active: development
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: jxjxjxmxnxs
+      password: 214332Jose
+
+management:
+  security:
+    enabled: false
