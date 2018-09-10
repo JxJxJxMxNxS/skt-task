@@ -20,6 +20,19 @@
           </div>
         </nav>
         <div class="container">
+            <c:if test="${not empty errors}" >
+                <div class="alert alert-primary" role="alert">
+                    <ul>
+                        <c:forEach var="error" items="${errors}">
+                            <li class="list-group-item">
+                                <div class="alert alert-danger">
+                                  <strong><c:out value="${error}"/>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
             <h1>Products</h1>
             <ul class="list-group">
               <c:forEach var="product" items="${products}">

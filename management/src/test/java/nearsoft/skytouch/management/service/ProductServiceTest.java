@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,20 +41,34 @@ public class ProductServiceTest {
         product.setId(1L);
 
         MockitoAnnotations.initMocks(this);
-        when(productRepository.retrieveProducts()).thenReturn(new ArrayList<Product>());
-        when(productRepository.storeProduct(product)).thenReturn(product);
+        try {
+            when(productRepository.retrieveProducts()).thenReturn(new ArrayList<>());
+            when(productRepository.storeProduct(product)).thenReturn(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     public void retrieveProductsTest() {
-        List<Product> products = productService.retrieveProducts();
+        List<Product> products = null;
+        try {
+            products = productService.retrieveProducts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         assertThat(products).isNotNull();
     }
 
     @Test
     public void storeProductsTest() {
         Product storedProduct = null;
-        storedProduct = productService.storeProduct(product);
+        try {
+            storedProduct = productService.storeProduct(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         assertThat(storedProduct).isNotNull();
         assertThat(storedProduct.getId()).isEqualTo(1L);

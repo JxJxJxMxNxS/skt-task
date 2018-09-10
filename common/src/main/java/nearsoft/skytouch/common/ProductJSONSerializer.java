@@ -15,47 +15,28 @@ public class ProductJSONSerializer {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductJSONSerializer.class);
 
-    public Product deserializeObject(String productJSON) {
+    public Product deserializeObject(String productJSON) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Product product = null;
-        try {
-            product = mapper.readValue(productJSON, Product.class);
-            return product;
-        } catch (IOException e) {
-            LOGGER.error(e.getStackTrace().toString());
-        }
+        product = mapper.readValue(productJSON, Product.class);
         return product;
     }
 
-    public String serializeObject(Product product) {
+    public String serializeObject(Product product) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(product);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e.getStackTrace().toString());
-        }
-        return null;
+        return mapper.writeValueAsString(product);
+
     }
 
-    public List<Product> deserializeList(String productsJSON) {
+    public List<Product> deserializeList(String productsJSON) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         List<Product> productList = null;
-        try {
-            productList = mapper.readValue(productsJSON, mapper.getTypeFactory().constructCollectionType(List.class, Product.class));
-            return productList;
-        } catch (IOException e) {
-            LOGGER.error(e.getStackTrace().toString());
-        }
+        productList = mapper.readValue(productsJSON, mapper.getTypeFactory().constructCollectionType(List.class, Product.class));
         return productList;
     }
 
-    public String serializeList(List<Product> products) {
+    public String serializeList(List<Product> products) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(products);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e.getStackTrace().toString());
-        }
-        return null;
+        return mapper.writeValueAsString(products);
     }
 }

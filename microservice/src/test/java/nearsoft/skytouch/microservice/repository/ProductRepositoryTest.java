@@ -1,84 +1,68 @@
 package nearsoft.skytouch.microservice.repository;
 
-import nearsoft.skytouch.common.model.Product;
-import nearsoft.skytouch.microservice.repository.impl.ProductRepositoryImpl;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
-import java.util.ArrayList;
+import nearsoft.skytouch.common.model.Product;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class ProductRepositoryTest {
-
-    @PersistenceContext
-    @Mock
-    private EntityManager entityManager;
-
     @Autowired
-    @InjectMocks
-    private ProductRepositoryImpl productRepository;
+    private ProductRepository productRepository;
 
-    private Product product;
-    private List<Product> products;
 
-    @Before
-    public void setup() {
-        product = new Product();
-        product.setName("TestProduct1");
-        product.setDescription("Product1 to test the repository");
+    @Test
+    public void storeProduct() {
+        Product product = new Product();
+        product.setName("Name Test1");
+        product.setDescription("Description Test1");
         product.setPrice(10L);
-        product.setId(1L);
-        List<Object[]> products = new ArrayList<>();
-        Object productAsArray[] = new Object[4];
-        productAsArray[0] = product.getName();
-        productAsArray[1] = product.getDescription();
-        productAsArray[2] = product.getPrice();
-        productAsArray[3] = product.getId();
 
-        products.add(productAsArray);
+        Long storedProductId = null;
+        try {
+            storedProductId = productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
-        StoredProcedureQuery mockedStoredProcedureQuery = mock(StoredProcedureQuery.class);
-        MockitoAnnotations.initMocks(this);
-
-        when(entityManager.createStoredProcedureQuery("getproducts")).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR)).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.getResultList()).thenReturn(products);
-
-        when(entityManager.createStoredProcedureQuery("addproduct")).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.registerStoredProcedureParameter(2, String.class, ParameterMode.IN)).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.registerStoredProcedureParameter(3, String.class, ParameterMode.IN)).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.registerStoredProcedureParameter(4, Long.class, ParameterMode.IN)).thenReturn(mockedStoredProcedureQuery);
-
-        when(mockedStoredProcedureQuery.setParameter(2, product.getName())).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.setParameter(3, product.getDescription())).thenReturn(mockedStoredProcedureQuery);
-        when(mockedStoredProcedureQuery.setParameter(4, product.getPrice())).thenReturn(mockedStoredProcedureQuery);
-
-
+        assertThat(storedProductId).isNotNull();
+        assertThat(storedProductId).isNotZero();
+        assertThat(storedProductId).isNotNull();
     }
 
     @Test
-    public void getProductsTest() {
-        assertThat(productRepository.getProducts()).isNotNull();
-    }
+    public void returnProductsList() {
+        Product product1 = new Product();
+        product1.setName("Product test 1");
+        product1.setDescription("Product description 1");
+        product1.setPrice(10L);
 
-    @Test
-    public void storeProductTest() {
-        Product storedProduct = productRepository.storeProduct(product);
-        assertThat(storedProduct).isNotNull();
-        assertThat(storedProduct.getId()).isEqualTo(1L);
-    }
+        Product product2 = new Product();
+        product2.setName("Product test 2");
+        product2.setDescription("Product description 2");
+        product2.setPrice(20L);
 
+        List<Product> products = null;
+
+        try {
+            product1.setId(productRepository.addProduct(product1.getName(), product1.getDescription(), product1.getPrice()));
+            product2.setId(productRepository.addProduct(product2.getName(), product2.getDescription(), product2.getPrice()));
+            products = productRepository.getproducts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        assertThat(products).hasSize(2);
+        assertThat(products.get(0).getName()).matches(product1.getName());
+        assertThat(products.get(1).getName()).matches(product2.getName());
+    }
 }

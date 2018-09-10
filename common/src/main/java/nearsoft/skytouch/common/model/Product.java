@@ -1,11 +1,32 @@
 package nearsoft.skytouch.common.model;
 
-public class Product {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+
+
+@Entity
+@Table(name = "products")
+public class Product implements Serializable {
+    @Column
+    @NotNull
+    @Size(min = 1, max = 20)
     private String name;
+    @Column
+    @NotNull
+    @Size(min = 5, max = 50)
     private String description;
+    @Column
+    @NotNull
     private Long price;
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Product() {
+    }
 
     public String getName() {
         return name;

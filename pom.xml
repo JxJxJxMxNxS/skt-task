@@ -20,6 +20,7 @@
         <spring-boot-starter-test.version>1.5.7.RELEASE</spring-boot-starter-test.version>
         <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
         <spring-boot-starter-amqp.version>1.5.7.RELEASE</spring-boot-starter-amqp.version>
+        <spring-cloud-starter-config.version>1.4.2.RELEASE</spring-cloud-starter-config.version>
     </properties>
 
     <dependencyManagement>
@@ -48,6 +49,13 @@
                 <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${spring-boot-starter-amqp.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-config</artifactId>
+                <version>${spring-cloud-starter-config.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
