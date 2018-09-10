@@ -29,6 +29,7 @@
         <spring-boot-starter-test.version>1.5.7.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-amqp.version>1.5.7.RELEASE</spring-boot-starter-amqp.version>
         <spring-boot-starter-data-jpa.version>1.5.7.RELEASE</spring-boot-starter-data-jpa.version>
+        <spring-boot-maven-plugin.version>1.5.7.RELEASE</spring-boot-maven-plugin.version>
     </properties>
 
 
@@ -90,7 +91,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.7.RELEASE</version>
+                <version>${spring-boot-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

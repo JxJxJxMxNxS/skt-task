@@ -13,6 +13,7 @@
     <properties>
         <spring-cloud-starter-config.version>1.4.2.RELEASE</spring-cloud-starter-config.version>
         <spring-boot-starter-data-jpa.version>1.5.7.RELEASE</spring-boot-starter-data-jpa.version>
+        <spring-boot-maven-plugin.version>1.5.7.RELEASE</spring-boot-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -49,7 +50,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.7.RELEASE</version>
+                <version>${spring-boot-maven-plugin.version}</version>
             </plugin>
         </plugins>
 

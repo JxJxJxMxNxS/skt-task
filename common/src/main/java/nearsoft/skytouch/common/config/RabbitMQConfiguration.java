@@ -12,7 +12,7 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @EnableRabbit
-@Configuration
+@Component
 public class RabbitMQConfiguration {
 
     private RabbitMQConfigProperties rabbitMQConfigProperties;
