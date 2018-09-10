@@ -6,8 +6,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      username: jxjxjxmxnxs
-      password: 214332Jose
+      username: ${SPRING_CLOUD_CONFIG_USERNAME}
+      password: ${SPRING_CLOUD_CONFIG_PASSWORD}
 
 management:
   security:
