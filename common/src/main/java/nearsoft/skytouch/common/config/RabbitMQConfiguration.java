@@ -4,14 +4,12 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,26 +23,11 @@ import java.util.concurrent.Executors;
 @Configuration
 public class RabbitMQConfiguration {
 
-    @Value("${rabbit-names-config.products-exchange-name:productExchange}")
-    private String productsExchangeName;
-    @Value("${rabbit-names-config.receive-products-queue-name:receiveProductsQueue}")
-    private String receiveProductsQueueName;
-    @Value("${rabbit-names-config.request-products-queue-name:requestProductsQueue}")
-    private String requestProductsQueueName;
-    @Value("${rabbit-names-config.store-products-queue-name:storeProductsQueue}")
-    private String storeProductsQueueName;
-    @Value("${rabbit-names-config.store-reply-products-queue-name:storeReplyProductsQueue}")
-    private String storeReplyProductsQueueName;
+    private RabbitMQConfigProperties rabbitMQConfigProperties;
 
-    @Value("${rabbit-names-config.reply-products-routing-key:reply.products}")
-    private String replyProductsRoutingKey;
-    @Value("${rabbit-names-config.request-products-routing-key:request.products}")
-    private String requestProductsRoutingKey;
-    @Value("${rabbit-names-config.store-products-routing-key:store.product}")
-    private String storeProductsRoutingKey;
-    @Value("${rabbit-names-config.store-reply-products-routing-key:store.reply.product}")
-    private String storeReplyProductsRoutingKey;
-
+    public RabbitMQConfiguration(RabbitMQConfigProperties rabbitMQConfigProperties) {
+        this.rabbitMQConfigProperties = rabbitMQConfigProperties;
+    }
 
     @Bean
     public Executor taskExecutor() {
@@ -76,22 +59,22 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Queue replyQueueRPC() {
-        return new Queue(receiveProductsQueueName);
+        return new Queue(rabbitMQConfigProperties.getReceiveProductsQueueName());
     }
 
     @Bean
     public Queue requestQueueRPC() {
-        return new Queue(requestProductsQueueName);
+        return new Queue(rabbitMQConfigProperties.getRequestProductsQueueName());
     }
 
     @Bean
     public Queue storeQueueRPC() {
-        return new Queue(storeProductsQueueName);
+        return new Queue(rabbitMQConfigProperties.getStoreProductsQueueName());
     }
 
     @Bean
     public Queue storeReplyQueueRPC() {
-        return new Queue(storeReplyProductsQueueName);
+        return new Queue(rabbitMQConfigProperties.getStoreReplyProductsQueueName());
     }
 
 
@@ -105,26 +88,17 @@ public class RabbitMQConfiguration {
 
 
     @Bean
-    public AsyncRabbitTemplate asyncRabbitTemplate(ConnectionFactory connectionFactory) {
-
-        AsyncRabbitTemplate asyncRabbitTemplate = new AsyncRabbitTemplate(rabbitTemplate(connectionFactory),
-                rpcReplyMessageListenerContainer(connectionFactory),
-                productsExchangeName + "/" + replyProductsRoutingKey);
-        return asyncRabbitTemplate;
-    }
-
-    @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(productsExchangeName);
+        return new DirectExchange(rabbitMQConfigProperties.getProductsExchangeName());
     }
 
     @Bean
     public List<Binding> bindings() {
         return Arrays.asList(
-                BindingBuilder.bind(requestQueueRPC()).to(directExchange()).with(requestProductsRoutingKey),
-                BindingBuilder.bind(replyQueueRPC()).to(directExchange()).with(replyProductsRoutingKey),
-                BindingBuilder.bind(storeQueueRPC()).to(directExchange()).with(storeProductsRoutingKey),
-                BindingBuilder.bind(storeReplyQueueRPC()).to(directExchange()).with(storeReplyProductsRoutingKey)
+                BindingBuilder.bind(requestQueueRPC()).to(directExchange()).with(rabbitMQConfigProperties.getRequestProductsRoutingKey()),
+                BindingBuilder.bind(replyQueueRPC()).to(directExchange()).with(rabbitMQConfigProperties.getReplyProductsRoutingKey()),
+                BindingBuilder.bind(storeQueueRPC()).to(directExchange()).with(rabbitMQConfigProperties.getStoreProductsRoutingKey()),
+                BindingBuilder.bind(storeReplyQueueRPC()).to(directExchange()).with(rabbitMQConfigProperties.getStoreReplyProductsRoutingKey())
         );
 
     }

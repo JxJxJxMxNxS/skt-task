@@ -1,3 +1,15 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/skt-task
+    username: jxjxjxm
+    password: JJJM214332
+    generate-dll: true
+    driverClassName: org.postgresql.Driver
 rabbit-names-config:
   products-exchange-name: productExchange
   receive-products-queue-name: receiveProductsQueue
@@ -9,9 +21,3 @@ rabbit-names-config:
   request-products-routing-key: request.products
   store-products-routing-key: store.product
   store-reply-products-routing-key: store.reply.product
-spring:
-  rabbitmq:
-        host: localhost
-        port: 5679
-        username: guest
-        password: guest

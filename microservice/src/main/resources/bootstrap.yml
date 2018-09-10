@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-microservice
+  profiles:
+    active: development
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: ${SPRING_CLOUD_CONFIG_USERNAME}
+      password: ${SPRING_CLOUD_CONFIG_PASSWORD}
+
+management:
+  security:
+    enabled: false

@@ -65,7 +65,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void storeProductsTest() {
-        Product storedProduct = null;
+        Product storedProduct;
         storedProduct = productRepository.storeProduct(product);
 
         assertThat(storedProduct).isNotNull();

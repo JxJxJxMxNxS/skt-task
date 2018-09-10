@@ -40,7 +40,7 @@ public class ProductServiceTest {
         product.setId(1L);
 
         MockitoAnnotations.initMocks(this);
-        when(productRepository.retrieveProducts()).thenReturn(new ArrayList<Product>());
+        when(productRepository.retrieveProducts()).thenReturn(new ArrayList<>());
         when(productRepository.storeProduct(product)).thenReturn(product);
     }
 
@@ -52,7 +52,7 @@ public class ProductServiceTest {
 
     @Test
     public void storeProductsTest() {
-        Product storedProduct = null;
+        Product storedProduct;
         storedProduct = productService.storeProduct(product);
 
         assertThat(storedProduct).isNotNull();
