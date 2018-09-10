@@ -25,8 +25,14 @@ public class Subscriber {
     @RabbitListener(queues = "requestProductsQueue")
     public String subscribeToRequestQueue(@Payload String requestMessage, Message message) {
         LOGGER.debug("Request received");
-        List<Product> products = this.productService.getProducts();
-        return productJSONSerializer.serializeList(products);
+        List<Product> products = null;
+        try {
+            products = this.productService.getProducts();
+            return productJSONSerializer.serializeList(products);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @RabbitHandler
@@ -34,6 +40,11 @@ public class Subscriber {
     public String subscribeTostoreQueue(@Payload String productMessage, Message message) {
 
         LOGGER.debug("Product received to storage {}", productMessage);
-        return productJSONSerializer.serializeObject(productService.storeProduct(productJSONSerializer.deserializeObject(productMessage)));
+        try {
+            return productJSONSerializer.serializeObject(productService.storeProduct(productJSONSerializer.deserializeObject(productMessage)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

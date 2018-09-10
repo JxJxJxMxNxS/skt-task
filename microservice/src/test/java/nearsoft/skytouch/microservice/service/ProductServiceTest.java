@@ -43,13 +43,22 @@ public class ProductServiceTest {
         products.add(product);
 
         MockitoAnnotations.initMocks(this);
-        when(productRepository.getproducts()).thenReturn(products);
-        when(productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice())).thenReturn(1L);
+        try {
+            when(productRepository.getproducts()).thenReturn(products);
+            when(productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice())).thenReturn(1L);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void getProductsTest() {
-        List<Product> products = productService.getProducts();
+        List<Product> products = null;
+        try {
+            products = productService.getProducts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         assertThat(products).isNotNull();
         assertThat(products).hasSize(1);
         assertThat(products.get(0).getName()).matches(product.getName());
@@ -57,8 +66,12 @@ public class ProductServiceTest {
 
     @Test
     public void storeProductTest() {
-        Product storedProduct;
-        storedProduct = productService.storeProduct(product);
+        Product storedProduct = null;
+        try {
+            storedProduct = productService.storeProduct(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertThat(storedProduct).isNotNull();
         assertThat(storedProduct.getId()).isEqualTo(1L);
