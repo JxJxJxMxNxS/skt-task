@@ -30,7 +30,7 @@ public class Subscriber {
             products = this.productService.getProducts();
             return productJSONSerializer.serializeList(products);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error", e.getMessage());
         }
         return null;
     }
@@ -43,7 +43,7 @@ public class Subscriber {
         try {
             return productJSONSerializer.serializeObject(productService.storeProduct(productJSONSerializer.deserializeObject(productMessage)));
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error", e.getMessage());
         }
         return null;
     }
