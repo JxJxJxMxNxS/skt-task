@@ -23,7 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * @return the ID of the stored product
      */
     @Procedure()
-    Long addProduct(String name, String description, Long price);
+    Long addProduct(String name, String description, Long price) throws Exception;
 
     /**
      * Returns all the products
@@ -31,5 +31,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * @return a list with all the products
      */
     @Query(nativeQuery = true, value = "select * from getproducts()")
-    List<Product> getproducts();
+    List<Product> getproducts() throws Exception;
 }

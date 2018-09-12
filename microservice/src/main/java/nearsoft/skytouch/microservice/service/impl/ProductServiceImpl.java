@@ -19,13 +19,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    public Product storeProduct(Product product) {
+    public Product storeProduct(Product product) throws Exception {
         Long productId = productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice());
         product.setId(productId);
         return product;
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getProducts() throws Exception {
         return productRepository.getproducts();
     }
 }

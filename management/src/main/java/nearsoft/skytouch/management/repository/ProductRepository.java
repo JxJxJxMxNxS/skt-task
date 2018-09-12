@@ -1,6 +1,7 @@
 package nearsoft.skytouch.management.repository;
 
 import nearsoft.skytouch.common.model.Product;
+import nearsoft.skytouch.management.ManagementAppException;
 
 import java.util.List;
 
@@ -15,12 +16,12 @@ public interface ProductRepository {
      *
      * @return a list with all the products
      */
-    List<Product> retrieveProducts();
+    List<Product> retrieveProducts() throws ManagementAppException;
 
     /***
      * Mechanism to store the products
      * @param product the product to be stored
      * @return the stored product
      */
-    Product storeProduct(Product product);
+    Product storeProduct(Product product) throws ManagementAppException;
 }

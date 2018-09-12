@@ -26,7 +26,12 @@ public class ProductRepositoryTest {
         product.setDescription("Description Test1");
         product.setPrice(10L);
 
-        Long storedProductId = productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice());
+        Long storedProductId = null;
+        try {
+            storedProductId = productRepository.addProduct(product.getName(), product.getDescription(), product.getPrice());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertThat(storedProductId).isNotNull();
         assertThat(storedProductId).isNotZero();
@@ -45,10 +50,17 @@ public class ProductRepositoryTest {
         product2.setDescription("Product description 2");
         product2.setPrice(20L);
 
-        product1.setId(productRepository.addProduct(product1.getName(), product1.getDescription(), product1.getPrice()));
-        product2.setId(productRepository.addProduct(product2.getName(), product2.getDescription(), product2.getPrice()));
+        List<Product> products = null;
 
-        List<Product> products = productRepository.getproducts();
+        try {
+            product1.setId(productRepository.addProduct(product1.getName(), product1.getDescription(), product1.getPrice()));
+            product2.setId(productRepository.addProduct(product2.getName(), product2.getDescription(), product2.getPrice()));
+            products = productRepository.getproducts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         assertThat(products).hasSize(2);
         assertThat(products.get(0).getName()).matches(product1.getName());
         assertThat(products.get(1).getName()).matches(product2.getName());
